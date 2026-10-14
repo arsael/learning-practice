@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useState } from 'react';
 import MainWindow from '../../../Учебная практика 21.09.2026/Проектирование многооконной архитектуры и навигации/src/MainWindow.jsx';
 import PartnerEditWindow from '../../../Учебная практика 21.09.2026/Проектирование многооконной архитектуры и навигации/src/PartnerEditWindow.jsx';
+import PartnerHistoryWindow from '../../../Учебная практика 28.09.2026/Разработка интерфейса истории реализации продукции/src/PartnerHistoryWindow.jsx';
 import '../styles.css';
 
 const App = () => {
@@ -67,11 +68,20 @@ const App = () => {
     setPage('main');
   };
 
+  const openHistory = (partner) => {
+    setCurrentPartner(partner);
+    setPage('history');
+  };
+
   if (page === 'edit') {
     return <PartnerEditWindow partner={currentPartner} onBack={returnToMain} onSave={savePartner} onSaved={returnToMain} />;
   }
 
-  return <MainWindow partners={partners} error={loadError} onAdd={openNewPartner} onSelect={openPartner} />;
+  if (page === 'history') {
+    return <PartnerHistoryWindow partner={currentPartner} onBack={returnToMain} />;
+  }
+
+  return <MainWindow partners={partners} error={loadError} onAdd={openNewPartner} onSelect={openPartner} onHistory={openHistory} />;
 };
 
 export default App;

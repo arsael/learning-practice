@@ -1,7 +1,8 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import logo from '../../../Учебная практика 14.09.2026/Разработка интерфейса (UI) по руководству по стилю/resources/company-logo.svg';
 
-const MainWindow = ({ partners, error, onAdd, onSelect }) => {
+const MainWindow = ({ partners, error, onAdd, onSelect, onHistory }) => {
+  const [selectedPartner, setSelectedPartner] = useState(null);
   useEffect(() => {
     document.title = 'CRM: Реестр партнеров';
   }, []);
@@ -13,10 +14,12 @@ const MainWindow = ({ partners, error, onAdd, onSelect }) => {
         <h1>CRM: Реестр партнеров</h1>
       </header>
       <button className="primary-button" type="button" onClick={onAdd}>Добавить партнера</button>
+      <button className="secondary-button" type="button" onClick={() => selectedPartner && onSelect(selectedPartner.partner_id)} disabled={!selectedPartner}>Редактировать партнера</button>
+      <button className="secondary-button" type="button" onClick={() => selectedPartner && onHistory(selectedPartner)} disabled={!selectedPartner}>История продаж</button>
       {error && <p className="page-error" role="alert">{error}</p>}
       <section className="partner-list" aria-label="Список партнеров">
         {partners.map((partner) => (
-          <button className="partner-card" type="button" key={partner.partner_id} onClick={() => onSelect(partner.partner_id)}>
+          <button className={`partner-card ${selectedPartner?.partner_id === partner.partner_id ? 'partner-card-selected' : ''}`} type="button" key={partner.partner_id} onClick={() => setSelectedPartner(partner)} onDoubleClick={() => onSelect(partner.partner_id)}>
             <span>
               <strong>{partner.company_name}</strong>
               <span>{partner.contact_email}</span>
