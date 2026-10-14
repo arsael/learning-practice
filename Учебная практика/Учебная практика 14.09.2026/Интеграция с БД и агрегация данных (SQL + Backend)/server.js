@@ -1,12 +1,59 @@
 import express from 'express';
 import { getPartnersWithDiscount } from './partner-service.js';
+import { createPartner, getPartnerById, updatePartner } from '../../Учебная практика 21.09.2026/Интеграция формы с БД (CRUD-операции и обновление UI)/partner-crud-service.js';
 
 const app = express();
 
-app.get('/api/partners', async (_request, response) => {
-  const partners = await getPartnersWithDiscount();
+app.use(express.json());
 
-  response.json(partners);
+app.get('/api/partners', async (_request, response) => {
+  try {
+    const partners = await getPartnersWithDiscount();
+
+    response.json(partners);
+  } catch {
+    response.status(500).json({ message: 'Не удалось получить список партнеров.' });
+  }
+});
+
+app.get('/api/partners/:partnerId', async (request, response) => {
+  try {
+    const partner = await getPartnerById(request.params.partnerId);
+
+    if (!partner) {
+      response.status(404).json({ message: 'Партнер не найден.' });
+      return;
+    }
+
+    response.json(partner);
+  } catch {
+    response.status(500).json({ message: 'Не удалось открыть карточку партнера.' });
+  }
+});
+
+app.post('/api/partners', async (request, response) => {
+  try {
+    const partner = await createPartner(request.body);
+
+    response.status(201).json(partner);
+  } catch (error) {
+    response.status(error.status ?? 500).json({ message: error.message });
+  }
+});
+
+app.put('/api/partners/:partnerId', async (request, response) => {
+  try {
+    const partner = await updatePartner(request.params.partnerId, request.body);
+
+    if (!partner) {
+      response.status(404).json({ message: 'Партнер не найден.' });
+      return;
+    }
+
+    response.json(partner);
+  } catch (error) {
+    response.status(error.status ?? 500).json({ message: error.message });
+  }
 });
 
 app.listen(3000);

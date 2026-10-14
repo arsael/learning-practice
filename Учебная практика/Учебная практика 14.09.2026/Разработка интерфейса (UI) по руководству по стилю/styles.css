@@ -48,6 +48,10 @@ body {
   min-height: 116px;
   padding: 16px 24px;
   border: 1px solid #777777;
+  background: #ffffff;
+  color: inherit;
+  text-align: left;
+  cursor: pointer;
 }
 
 .partner-card h2,
@@ -69,4 +73,100 @@ body {
 .partner-card strong {
   font-size: 18px;
   font-weight: 400;
+}
+
+.partner-card span {
+  display: block;
+}
+
+.primary-button,
+.secondary-button {
+  margin-bottom: 18px;
+  padding: 10px 16px;
+  border: 1px solid #2d5d7b;
+  font: inherit;
+  cursor: pointer;
+}
+
+.primary-button {
+  background: #2d5d7b;
+  color: #ffffff;
+}
+
+.secondary-button {
+  margin-left: 8px;
+  background: #ffffff;
+  color: #2d5d7b;
+}
+
+.page-error {
+  color: #a50000;
+}
+
+.partner-form {
+  display: grid;
+  gap: 14px;
+}
+
+.partner-form label {
+  display: grid;
+  gap: 6px;
+}
+
+.partner-form input,
+.partner-form select {
+  min-height: 38px;
+  padding: 8px;
+  border: 1px solid #777777;
+  font: inherit;
+}
+
+.form-actions {
+  margin-top: 24px;
+}
+
+.dialog-backdrop {
+  position: fixed;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  padding: 20px;
+  background: rgb(0 0 0 / 35%);
+}
+
+.dialog {
+  display: flex;
+  gap: 14px;
+  max-width: 480px;
+  padding: 22px;
+  background: #ffffff;
+  border: 1px solid #777777;
+}
+
+.dialog h2,
+.dialog p {
+  margin: 0 0 12px;
+}
+
+.dialog-icon {
+  display: grid;
+  place-items: center;
+  flex: 0 0 30px;
+  height: 30px;
+  border-radius: 50%;
+  color: #ffffff;
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.dialog-error .dialog-icon {
+  background: #a50000;
+}
+
+.dialog-warning .dialog-icon {
+  background: #aa6d00;
+}
+
+.dialog-information .dialog-icon {
+  background: #2d5d7b;
 }
