@@ -11,12 +11,16 @@ test('округляет расход вверх', () => {
 
 test('возвращает -1 для несуществующего типа', () => {
   expect(calculateMaterialRequirement(3, 1, 1, 1, 1)).toBe(-1);
+  expect(calculateMaterialRequirement(1, 3, 1, 1, 1)).toBe(-1);
 });
 
 test('возвращает -1 для отрицательного параметра', () => {
   expect(calculateMaterialRequirement(1, 1, 1, -1, 1)).toBe(-1);
+  expect(calculateMaterialRequirement(1, 1, 1, 1, -1)).toBe(-1);
 });
 
 test('возвращает -1 для нулевого количества', () => {
   expect(calculateMaterialRequirement(1, 1, 0, 1, 1)).toBe(-1);
+  expect(calculateMaterialRequirement(1, 1, -1, 1, 1)).toBe(-1);
+  expect(calculateMaterialRequirement(1, 1, 1, Number.NaN, 1)).toBe(-1);
 });
