@@ -1,0 +1,25 @@
+{
+  "name": "partner-discounts-crm",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "concurrently \"node \\\"../Интеграция с БД и агрегация данных (SQL + Backend)/server.js\\\"\" \"vite\"",
+    "build": "vite build",
+    "check:discount": "node \"../Разработка ядра бизнес-логики (Расчет скидки)/discount-check.js\"",
+    "check:app": "node \"../Наполнение интерфейса, отладка и стресс-тестирование/app-check.js\""
+  },
+  "dependencies": {
+    "express": "^5.1.0",
+    "pg": "^8.16.3",
+    "react": "^19.1.1",
+    "react-dom": "^19.1.1"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^5.0.2",
+    "concurrently": "^9.2.1",
+    "vite": "^7.1.5"
+  },
+  "allowScripts": {
+    "esbuild": true
+  }
+}
