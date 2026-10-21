@@ -15,6 +15,9 @@ export const getPartnersWithDiscount = async () => {
       partners.contact_email,
       partners.phone,
       partners.rating,
+      partners.partner_type,
+      partners.address,
+      partners.director_name,
       COALESCE(SUM(sales_history.quantity), 0)::INTEGER AS total_quantity
     FROM partners
     LEFT JOIN sales_history ON sales_history.partner_id = partners.partner_id
@@ -27,5 +30,7 @@ export const getPartnersWithDiscount = async () => {
     discount: calculatePartnerDiscount(partner.total_quantity)
   }));
 };
+
+export const query = (text, values) => pool.query(text, values);
 
 export const closeDatabaseConnection = () => pool.end();
