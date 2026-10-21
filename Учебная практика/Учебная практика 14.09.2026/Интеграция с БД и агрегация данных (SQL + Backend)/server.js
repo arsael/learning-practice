@@ -1,6 +1,8 @@
 import express from 'express';
 import { getPartnersWithDiscount } from './partner-service.js';
 import { createPartner, getPartnerById, updatePartner } from '../../Учебная практика 21.09.2026/Интеграция формы с БД (CRUD-операции и обновление UI)/partner-crud-service.js';
+import { getSalesHistoryByPartner } from '../../Учебная практика 28.09.2026/Разработка интерфейса истории реализации продукции/history-service.js';
+import { logError } from '../../Учебная практика 28.09.2026/Модульное тестирование (Unit Testing) и аудит безопасности/logger.js';
 
 const app = express();
 
@@ -11,7 +13,8 @@ app.get('/api/partners', async (_request, response) => {
     const partners = await getPartnersWithDiscount();
 
     response.json(partners);
-  } catch {
+  } catch (error) {
+    logError(error);
     response.status(500).json({ message: 'Не удалось получить список партнеров.' });
   }
 });
@@ -26,7 +29,8 @@ app.get('/api/partners/:partnerId', async (request, response) => {
     }
 
     response.json(partner);
-  } catch {
+  } catch (error) {
+    logError(error);
     response.status(500).json({ message: 'Не удалось открыть карточку партнера.' });
   }
 });
@@ -37,6 +41,7 @@ app.post('/api/partners', async (request, response) => {
 
     response.status(201).json(partner);
   } catch (error) {
+    logError(error);
     response.status(error.status ?? 500).json({ message: error.message });
   }
 });
@@ -52,7 +57,17 @@ app.put('/api/partners/:partnerId', async (request, response) => {
 
     response.json(partner);
   } catch (error) {
+    logError(error);
     response.status(error.status ?? 500).json({ message: error.message });
+  }
+});
+
+app.get('/api/partners/:partnerId/history', async (request, response) => {
+  try {
+    response.json(await getSalesHistoryByPartner(request.params.partnerId));
+  } catch (error) {
+    logError(error);
+    response.status(500).json({ message: 'Не удалось получить историю продаж.' });
   }
 });
 

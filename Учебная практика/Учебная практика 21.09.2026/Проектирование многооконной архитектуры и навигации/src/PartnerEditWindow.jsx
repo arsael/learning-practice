@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import PartnerForm from '../../Разработка формы добавления, редактирования партнера/src/PartnerForm.jsx';
 import NotificationDialog from '../../Обработка исключений и интерактивные уведомления (UX, UI)/src/NotificationDialog.jsx';
+import MaterialCalculator from '../../../Учебная практика 28.09.2026/Интеграция метода расчета и комплексное тестирование/src/MaterialCalculator.jsx';
 
 const createPartner = (partner) => ({
   partner_id: partner?.partner_id,
@@ -93,6 +94,7 @@ const PartnerEditWindow = ({ partner, onBack, onSave, onSaved }) => {
     <main className="page">
       <header className="header"><h1>{partner ? 'Карточка партнера' : 'Добавление партнера'}</h1></header>
       <PartnerForm partner={formData} onChange={updateField} />
+      <MaterialCalculator />
       <div className="form-actions">
         <button className="primary-button" type="button" onClick={submit}>Сохранить</button>
         <button className="secondary-button" type="button" onClick={leaveEditor}>Назад</button>
